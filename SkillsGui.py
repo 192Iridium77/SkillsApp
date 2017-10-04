@@ -122,10 +122,10 @@ def main():
     try:
         skill_obj_list = load_set()
     except KeyError:
-        coding = Skill("images/coding.png", "Coding", 764)
-        physics = Skill("images/physics.png", "Physics", 414)
-        chemistry = Skill("images/chemistry2.png", "Chemistry", 391)
-        maths = Skill("images/maths.png", "Maths", 504)
+        coding = Skill("images/snek.png", "Coding", 764)
+        physics = Skill("images/chimpit.png", "Physics", 414)
+        chemistry = Skill("images/alkalion.png", "Chemistry", 391)
+        maths = Skill("images/fitale.png", "Maths", 504)
 
         skill_obj_list = [coding, physics, chemistry, maths]
 
