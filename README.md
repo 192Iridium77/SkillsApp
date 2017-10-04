@@ -1,4 +1,4 @@
-# Project Title
+# Pomodoro App
 
 Simple app for tallying up hours of study/work, aim is to reach the legendary 10,000 hour mark of focused practice in your discipline of choice. I've tried to gamify this so that you can be more motivated and have a better understanding of what stage you are at in your trade.
 
