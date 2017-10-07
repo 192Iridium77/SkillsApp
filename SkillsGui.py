@@ -7,6 +7,7 @@ import math
 import shelve
 import time
 import os.path
+import pygame
 
 
 class DisplaySkills:
@@ -95,12 +96,18 @@ class DisplaySkills:
         except IndexError:
             pass
 
-
-
+        pygame.mixer.init()
         window.mainloop()
 
 
     def addExp(self, i):
+        try:
+            up_sound = pygame.mixer.Sound("sounds/up.wav")
+            down_sound = pygame.mixer.Sound("sounds/down.wav")
+        except:
+            raise UserWarning("Sound file not found.")
+        up_sound.play()
+
         self.logger()
         exp = self.exp_points_list[i].get()
         exp += 1
@@ -110,6 +117,13 @@ class DisplaySkills:
         self.processProgress(i)
 
     def takeExp(self, i):
+        try:
+            up_sound = pygame.mixer.Sound("sounds/up.wav")
+            down_sound = pygame.mixer.Sound("sounds/down.wav")
+        except:
+            raise UserWarning("Sound file not found.")
+        down_sound.play()
+
         self.logger()
         exp = self.exp_points_list[i].get()
         exp -= 1

@@ -13,3 +13,9 @@ If it's not already installed on your computer, you can get the latest version o
 You will also need tkinter, instructions for which are at http://www.tkdocs.com/tutorial/install.html
 
 And you will need the Shelf module, which is part of the python standard library and should already be available when you install python 3.
+
+Pygame is also used, if you're on unix, you can run:
+
+pip install pygame
+
+or follow the instructions at https://www.pygame.org/wiki/GettingStarted
