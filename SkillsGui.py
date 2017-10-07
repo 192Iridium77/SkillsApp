@@ -5,6 +5,8 @@
 from tkinter import *
 import math
 import shelve
+import time
+import os.path
 
 
 class DisplaySkills:
@@ -53,7 +55,9 @@ class DisplaySkills:
             # Create a label that displays current exp total
             self.exp_points_list.append(IntVar())
             self.exp_points_list[i].set(skill_obj_list[i].exp_points)
-            Label(frame_list[i], textvariable=self.exp_points_list[i]).grid(row=1, column=4)
+            Label(frame_list[i],
+                  textvariable=self.exp_points_list[i]).grid(row=1, column=4,
+                                                             columnspan=2)
 
             # Draw exp bar with length set to exp progress
             self.progress = 0  # placeholder
@@ -66,27 +70,71 @@ class DisplaySkills:
         # Buttons used to MODIFY exp points, has to be done outside of loop otherwise tkinter sets each
         # button parameter to i = 3
         try:
-            Button(frame_list[0], text="+", command= lambda : self.addExp(0)).grid(row=2, column=4)
-            Button(frame_list[1], text="+", command= lambda : self.addExp(1)).grid(row=2, column=4)
-            Button(frame_list[2], text="+", command= lambda : self.addExp(2)).grid(row=2, column=4)
-            Button(frame_list[3], text="+", command= lambda : self.addExp(3)).grid(row=2, column=4)
-            Button(frame_list[4], text="+", command= lambda : self.addExp(4)).grid(row=2, column=4)
-            Button(frame_list[5], text="+", command= lambda : self.addExp(5)).grid(row=2, column=4)
+            Button(frame_list[0], text="+", command= lambda :
+                   self.addExp(0)).grid(row=2, column=5)
+            Button(frame_list[1], text="+", command= lambda :
+                   self.addExp(1)).grid(row=2, column=5)
+            Button(frame_list[2], text="+", command= lambda :
+                   self.addExp(2)).grid(row=2, column=5)
+            Button(frame_list[3], text="+", command= lambda :
+                   self.addExp(3)).grid(row=2, column=5)
+            Button(frame_list[4], text="+", command= lambda :
+                   self.addExp(4)).grid(row=2, column=5)
+            Button(frame_list[5], text="+", command= lambda :
+                   self.addExp(5)).grid(row=2, column=5)
         except IndexError:
             pass
+
+        try:
+            Button(frame_list[0], text="-", command= lambda : self.takeExp(0)).grid(row=2, column=4)
+            Button(frame_list[1], text="-", command= lambda : self.takeExp(1)).grid(row=2, column=4)
+            Button(frame_list[2], text="-", command= lambda : self.takeExp(2)).grid(row=2, column=4)
+            Button(frame_list[3], text="-", command= lambda : self.takeExp(3)).grid(row=2, column=4)
+            Button(frame_list[4], text="-", command= lambda : self.takeExp(4)).grid(row=2, column=4)
+            Button(frame_list[5], text="-", command= lambda : self.takeExp(5)).grid(row=2, column=4)
+        except IndexError:
+            pass
+
 
 
         window.mainloop()
 
 
     def addExp(self, i):
-        print(i)
+        self.logger()
         exp = self.exp_points_list[i].get()
         exp += 1
         # update everything
         self.exp_points_list[i].set(exp)
         self.calculateLevel(i)
         self.processProgress(i)
+
+    def takeExp(self, i):
+        self.logger()
+        exp = self.exp_points_list[i].get()
+        exp -= 1
+        # update everything
+        self.exp_points_list[i].set(exp)
+        self.calculateLevel(i)
+        self.processProgress(i)
+
+    def logger(self):
+        #if os.path.isfile("log.txt"):
+            #log_file = open('log.txt', 'r')
+            #date = time.
+            # TODO finish writing date adding
+        # create logging file if not present and append data to it if it's
+        # there
+        if not os.path.isfile("log.txt"):
+            log_file = open('log.txt', 'w')
+            entry = time.strftime('%I:%M:%S %p') + "\n"
+            log_file.write(entry)
+            log_file.close()
+        else:
+            log_file = open('log.txt', 'a')
+            entry = time.strftime('%I:%M:%S %p') + "\n"
+            log_file.write(entry)
+            log_file.close()
 
     def calculateLevel(self, i):
         x = float(self.exp_points_list[i].get())
@@ -101,7 +149,7 @@ class DisplaySkills:
         self.canvas_list[i].delete("progress")
         self.canvas_list[i].create_line(10, 20, self.progress + 10, 20, fill="#009900", width=6, tags="progress")
 
-    def resetExp(self, i):  # TODO make button for this
+    def resetExp(self, i):  # TODO set up a menu option to implement this
         self.exp_points_list[i].set(0)
 
     def access_exp(self, i):
