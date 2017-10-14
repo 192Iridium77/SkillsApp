@@ -103,7 +103,6 @@ class DisplaySkills:
     def addExp(self, i):
         try:
             up_sound = pygame.mixer.Sound("sounds/up.wav")
-            down_sound = pygame.mixer.Sound("sounds/down.wav")
         except:
             raise UserWarning("Sound file not found.")
         up_sound.play()
@@ -118,7 +117,6 @@ class DisplaySkills:
 
     def takeExp(self, i):
         try:
-            up_sound = pygame.mixer.Sound("sounds/up.wav")
             down_sound = pygame.mixer.Sound("sounds/down.wav")
         except:
             raise UserWarning("Sound file not found.")
@@ -141,12 +139,12 @@ class DisplaySkills:
         # there
         if not os.path.isfile("log.txt"):
             log_file = open('log.txt', 'w')
-            entry = time.strftime('%I:%M:%S %p') + "\n"
+            entry = time.strftime('%d-%m-%Y | %I:%M:%S %p') + "\n"
             log_file.write(entry)
             log_file.close()
         else:
             log_file = open('log.txt', 'a')
-            entry = time.strftime('%I:%M:%S %p') + "\n"
+            entry = time.strftime('%d-%m-%Y | %I:%M:%S %p') + "\n"
             log_file.write(entry)
             log_file.close()
 
