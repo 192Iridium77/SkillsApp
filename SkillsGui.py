@@ -105,6 +105,7 @@ class DisplaySkills:
             up_sound = pygame.mixer.Sound("sounds/up.wav")
         except:
             raise UserWarning("Sound file not found.")
+        up_sound.set_volume(0.4)
         up_sound.play()
 
         self.logger()
@@ -120,6 +121,7 @@ class DisplaySkills:
             down_sound = pygame.mixer.Sound("sounds/down.wav")
         except:
             raise UserWarning("Sound file not found.")
+        down_sound.set_volume(0.4)
         down_sound.play()
 
         self.logger()
@@ -139,12 +141,12 @@ class DisplaySkills:
         # there
         if not os.path.isfile("log.txt"):
             log_file = open('log.txt', 'w')
-            entry = time.strftime('%d-%m-%Y | %I:%M:%S %p') + "\n"
+            entry = time.strftime('%d-%m-%Y | %I:%M:%S %p |') + "\n"
             log_file.write(entry)
             log_file.close()
         else:
             log_file = open('log.txt', 'a')
-            entry = time.strftime('%d-%m-%Y | %I:%M:%S %p') + "\n"
+            entry = time.strftime('%d-%m-%Y | %I:%M:%S %p |') + "\n"
             log_file.write(entry)
             log_file.close()
 
