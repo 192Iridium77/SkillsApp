@@ -26,6 +26,7 @@ class DisplaySkills:
         frame_list = []
         icon_list = []
         self.exp_points_list = []
+        self.forms_list = []
         self.level_list = []
         self.canvas_list = []
         for i in range(len(skill_obj_list)):
@@ -49,8 +50,8 @@ class DisplaySkills:
 
             # create canvas for the exp bar
             self.canvas_list.append(Canvas(frame_list[i]))
-            self.canvas_list[i]["width"] = 220
-            self.canvas_list[i]["height"] = 40
+            self.canvas_list[i]["width"] = 440
+            self.canvas_list[i]["height"] = 80
             self.canvas_list[i].grid(row=2, column=3)
 
             # Create a label that displays current exp total
@@ -60,13 +61,18 @@ class DisplaySkills:
                   textvariable=self.exp_points_list[i]).grid(row=1, column=4,
                                                              columnspan=2)
 
+            # retrieve the form value so you can display correct image
+            self.forms_list[i].append(IntVar())
+            self.forms_list[i].set(skill_obj_list[i].form)
+
             # Draw exp bar with length set to exp progress
             self.progress = 0  # placeholder
             self.calculateLevel(i)
             self.processProgress(i)
-            self.canvas_list[i].create_line(10, 20, 200, 20, fill="#99CC99", width=6)
-            self.canvas_list[i].create_line(10, 20, self.progress, 20, fill="#009900",
-                                                         width=6, tags="progress")
+            self.canvas_list[i].create_line(20, 40, 400, 40, fill="#99CC99",
+                                            width=8)
+            self.canvas_list[i].create_line(20, 40, self.progress, 40, fill="#009900",
+                                                         width=8, tags="progress")
 
         # Buttons used to MODIFY exp points, has to be done outside of loop otherwise tkinter sets each
         # button parameter to i = 3
@@ -115,6 +121,7 @@ class DisplaySkills:
         self.exp_points_list[i].set(exp)
         self.calculateLevel(i)
         self.processProgress(i)
+        self.determineForm(i)
 
     def takeExp(self, i):
         try:
@@ -157,11 +164,26 @@ class DisplaySkills:
         lvlint = int(root)
         self.level_list[i].set(lvlint)
 
+    def determineForm(self, i):
+        remainder = self.root % 1
+        this_form = self.forms_list[i].get() # should return 0, 1, 2
+        lvl = int(self.root)
+        if remainder == 0 and lvl <= 19:
+            this_form = 0
+        elif remainder == 0 and 19 < lvl < 39:  # TODO make these numbers
+        # intrinsic
+            this_form = 1
+        else:
+            this_form = 2
+        # sanity check:
+        print(this_form)
+
     def processProgress(self, i):
         remainder = self.root % 1
-        self.progress = math.floor(remainder * 200)
+        self.progress = math.floor(remainder * 400)
         self.canvas_list[i].delete("progress")
-        self.canvas_list[i].create_line(10, 20, self.progress + 10, 20, fill="#009900", width=6, tags="progress")
+        self.canvas_list[i].create_line(20, 40, self.progress + 20, 40,
+                                        fill="#009900", width=8, tags="progress")
 
     def resetExp(self, i):  # TODO set up a menu option to implement this
         self.exp_points_list[i].set(0)
@@ -171,23 +193,28 @@ class DisplaySkills:
 
 
 class Skill:
-    def __init__(self, image_path, skill_label, exp_points):
+    def __init__(self, image_path, skill_label, exp_points, form):
         self.image_path = image_path
         self.skill_label = skill_label
         self.exp_points = exp_points
+        self.form = form # 0, 1, 2
 
     def retrieve_exp_data(self, exp):
         self.exp_points = exp
+
+    def retrieve_form(self, form):
+        self.form = form
+
 
 
 def main():
     try:
         skill_obj_list = load_set()
     except KeyError:
-        coding = Skill("images/snek.png", "Coding", 764)
-        physics = Skill("images/chimpit.png", "Physics", 414)
-        chemistry = Skill("images/alkalion.png", "Chemistry", 391)
-        maths = Skill("images/fitale.png", "Maths", 504)
+        coding = Skill("images/snek.png", "Coding", 764, 0)
+        physics = Skill("images/chimpit.png", "Physics", 414, 0)
+        chemistry = Skill("images/alkalion.png", "Chemistry", 391, 0)
+        maths = Skill("images/fitale.png", "Maths", 504, 0)
 
         skill_obj_list = [coding, physics, chemistry, maths]
 
