@@ -62,7 +62,7 @@ class DisplaySkills:
                                                              columnspan=2)
 
             # retrieve the form value so you can display correct image
-            self.forms_list[i].append(IntVar())
+            self.forms_list.append(IntVar())
             self.forms_list[i].set(skill_obj_list[i].form)
 
             # Draw exp bar with length set to exp progress
@@ -210,11 +210,12 @@ class Skill:
 def main():
     try:
         skill_obj_list = load_set()
+    # if the set cannot be loaded, create a new one:
     except KeyError:
-        coding = Skill("images/snek.png", "Coding", 764, 0)
-        physics = Skill("images/chimpit.png", "Physics", 414, 0)
-        chemistry = Skill("images/alkalion.png", "Chemistry", 391, 0)
-        maths = Skill("images/fitale.png", "Maths", 504, 0)
+        coding = Skill("images/snek.png", "Coding", 0, 0)
+        physics = Skill("images/chimpit.png", "Physics", 0, 0)
+        chemistry = Skill("images/alkalion.png", "Chemistry", 0, 0)
+        maths = Skill("images/fitale.png", "Maths", 0, 0)
 
         skill_obj_list = [coding, physics, chemistry, maths]
 
