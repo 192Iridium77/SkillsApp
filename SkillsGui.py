@@ -18,9 +18,17 @@ class DisplaySkills:
         # create menu bar
         menubar = Menu(window)
         window.config(menu = menubar)
+
         file_menu = Menu(menubar, tearoff=0)
         menubar.add_cascade(label="File", menu=file_menu)
         file_menu.add_command(label='Exit', command=window.quit)
+
+        action = BooleanVar()
+        action.set(True)
+        option_menu = Menu(menubar, tearoff=0)
+        option_menu.add_checkbutton(label="Svelte", onvalue= 1, variable = action)
+        menubar.add_cascade(label="Option", menu=option_menu)
+
 
         # build frames
         frame_list = []
