@@ -154,14 +154,14 @@ class DisplaySkills:
             # TODO finish writing date adding
         # create logging file if not present and append data to it if it's
         # there
-        if not os.path.isfile("log.txt"):
+        if not os.path.isfile("log.csv"):
             log_file = open('log.txt', 'w')
-            entry = time.strftime('%d-%m-%Y | %I:%M:%S %p |') + "\n"
+            entry = time.strftime('%U | %d-%m-%Y | %I:%M:%S %p |') + "\n"
             log_file.write(entry)
             log_file.close()
         else:
-            log_file = open('log.txt', 'a')
-            entry = time.strftime('%d-%m-%Y | %I:%M:%S %p |') + "\n"
+            log_file = open('log.csv', 'a')
+            entry = time.strftime('%U | %d-%m-%Y | %I:%M:%S %p |') + "\n"
             log_file.write(entry)
             log_file.close()
 
@@ -183,8 +183,6 @@ class DisplaySkills:
             this_form = 1
         else:
             this_form = 2
-        # sanity check:
-        print(this_form)
 
     def processProgress(self, i):
         remainder = self.root % 1
@@ -212,7 +210,6 @@ class Skill:
 
     def retrieve_form(self, form):
         self.form = form
-
 
 
 def main():
